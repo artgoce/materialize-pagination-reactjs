@@ -5,3 +5,8 @@ Simple React JS Pagination with Materialize CSS <br/><br/>
 {object} data<br/>
 {integer} itemsPerPage<br/>
 
+<p align="center">
+  <img src="./screenshot.png"/>
+
+</p>
+
