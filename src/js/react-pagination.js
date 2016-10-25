@@ -1,3 +1,4 @@
+"use strict";
 var data = [{id:1,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
 			{id:2,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
 			{id:3,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
