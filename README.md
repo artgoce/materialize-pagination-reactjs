@@ -1,6 +1,6 @@
 # materialize-pagination-reactjs
-Simple React JS Pagination with MaterializeCSS
-@param
-{object} data \n
-{integer} itemsPerPage
+Simple React JS Pagination with MaterializeCSS <br/>
+@param <br/>
+{object} data<br/>
+{integer} itemsPerPage<br/>
 
