@@ -1,0 +1,119 @@
+var data = [{id:1,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:2,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:3,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:4,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:5,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:6,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:7,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:8,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:9,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:10,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:11,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:12,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:13,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:14,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:15,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."},
+			{id:16,title:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor quasi sit hic dolore, harum! Id qui ducimus itaque alias repudiandae amet voluptas rem, placeat facere illo hic, vero aliquam."}];
+
+var App = React.createClass({
+	getInitialState: function(){
+		var pages = Math.ceil((this.props.data.length / this.props.itemsPerPage));
+		return {pages:pages,currentPage:1};
+
+	},
+	updateCurrentPage: function(i){
+		var pageToGo = this.state.currentPage + i;
+		var currentPage = ((pageToGo <= 0) || (pageToGo > this.state.pages))?  this.state.currentPage :  pageToGo;
+		this.setState({currentPage:currentPage});
+	},
+	goToPage: function(page){
+		this.setState({currentPage:page});
+	},
+	render: function(){
+		return(
+			<div>
+				<Table data={this.props.data} currentPage={this.state.currentPage} itemsPerPage={this.props.itemsPerPage}/>
+				<Pagination currentPage={this.state.currentPage} pages={this.state.pages} updateCurrentPage={this.updateCurrentPage} goToPage={this.goToPage}/>
+			</div>
+		);
+	}
+});
+
+var Table = React.createClass({
+	render: function(){
+		var rows = this.props.data.map(function(item,index){
+			var limit = (this.props.currentPage * this.props.itemsPerPage) - 1;
+			if((index <= limit) && (index >= (limit - this.props.itemsPerPage + 1))){
+				return(
+				<tr>
+					<td>{item.id}</td>
+					<td>{item.title}</td>
+				</tr>
+				);
+			}
+		}.bind(this));
+		var headers = function(){
+			var keys = Object.keys(this.props.data[0]);
+			var headers = [];
+			for(var key in keys){
+				headers.push(<td>{keys[key].toString().toUpperCase()}</td>);
+			}
+			return(headers);
+		}.bind(this)();
+		return(
+			<div className="section">
+				<div className="container">
+					<div className="row">
+						<div className="col s12">
+							<table className="striped">
+								<thead>
+									<tr>
+										{headers}
+									</tr>
+								</thead>
+								<tbody>
+									{rows}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		);
+	}
+});
+
+var Pagination = React.createClass({
+	render: function(){
+		var pagination = function(){
+			var pages = [];
+			pages.push(<li><a href="#!" onClick={() => this.props.updateCurrentPage(-1)}><i className="material-icons">chevron_left</i></a></li>);
+			for(var i = 1; i <= this.props.pages; i++){
+				let counter = i;
+				(this.props.currentPage === counter)?pages.push(<li className="active"><a href="#!" onClick={() => this.props.goToPage(counter)}>{i}</a></li>):pages.push(<li className="waves-effect"><a href="#!" onClick={() => this.props.goToPage(counter)}>{i}</a></li>);
+			}
+			pages.push(<li className="waves-effect"><a href="#!" onClick={() => this.props.updateCurrentPage(1)}><i className="material-icons">chevron_right</i></a></li>);
+			return(pages);
+		}.bind(this)();
+		return(
+			<div className="section">
+				<div className="container">
+					<div className="row">
+						<div className="col s12">
+							<center>
+								<ul className="pagination">
+									{pagination}
+								</ul>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+});
+
+ReactDOM.render(
+	<App data={data} itemsPerPage={5}/>,
+	document.getElementById('app')
+);
