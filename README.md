@@ -7,6 +7,7 @@ Simple React JS Pagination with Materialize CSS <br/><br/>
 
 <p align="center">
   <img src="./screenshot.png"/>
-
-</p>
+</p><br/>
+<b>DEMO</b><br>
+<script async src="//jsfiddle.net/artgoce/hj37tsLz/2/embed/result/"></script>
 
